@@ -54,7 +54,7 @@ public boolean array6(int[] nums, int index) {
 // We'll use the convention of considering only the part of the array that begins at the given index. 
 // In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0.
 // array6([1, 6, 4], 0) → true
-  if (index == nums.length) return false; // to stop going out of bounds (instead of len=0 b/c nums stays nums)
+  if (index == nums.length) return false; // to not go out of bounds (instead of len=0 b/c nums stays same)
   
   int f = nums[index]; // considering at new index instead of nums[0]
   
