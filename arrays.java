@@ -36,3 +36,47 @@ public int[] tenRun(int[] nums) {
   }
   return nums;
 }
+// zeroFront
+// {1, 0, 0, 1} becomes {0 ,0, 1, 1}
+public int[] zeroFront(int[] nums) {
+  int count = 0;
+  for (int i=0; i < nums.length; i++) {
+    if (nums[i] == 0) {
+      nums[i] = nums[count]; // count = 0; non-zero @[0], etc
+      nums[count] = 0; // swap zero and non-zero
+      count++;
+    }
+  }
+  return nums;
+}
+public int[] evenOdd(int[] nums) {
+  all the even numbers come before all the odd numbers
+  evenOdd([1, 0, 1, 0, 0, 1, 1]) → [0, 0, 0, 1, 1, 1, 1]
+  int countEven = 0;
+  for (int i=0; i < nums.length; i++) {
+    if (nums[i] % 2 == 0) {
+      int even = nums[i]; // temp to hold even, vs default 0 for zeroFront
+      nums[i] = nums[countEven];
+      nums[countEven] = even;
+      countEven++;
+    }
+  }
+  return nums;
+}
+public int[] zeroMax(int[] nums) {
+  
+  Return a version of the given array where each zero value in the array is replaced by the largest odd value to the right of the zero 
+  in the array. If there is no odd value to the right of the zero, leave the zero as a zero.
+  zeroMax([0, 5, 0, 3]) → [5, 5, 3, 3]
+  zeroMax([0, 4, 0, 3]) → [3, 4, 3, 3]
+  zeroMax([0, 1, 0]) → [1, 1, 0]
+  
+  int max = 0;
+  for (int i = nums.length-1; i >= 0; i--) { //iterate backwards b/c zero only gets max to its right
+    if (nums[i] % 2 == 1) max = Math.max(max, nums[i]); 
+    if (nums[i] == 0) nums[i] = max;
+  }
+  return nums;
+}
+
+
