@@ -38,3 +38,27 @@ public int count7(int n) {
   if (n % 10 == 7) return 1 + count7(n/10);
   return count7(n/10);
 }
+public int countHi(String str) {
+// Given a string, compute recursively (no loops) the number of times lowercase "hi" appears in the string.
+// countHi("xxhixx") → 1
+// countHi("xhixhix") → 2  
+  if (str.length() <= 1) return 0; // screen out; 'if' only len=2 cases
+  
+  int count = 0; // 'fix' factor
+  
+  if (str.substring(0, 2).equals("hi")) count = 1;  
+  return count + countHi(str.substring(1)); // 'slice': sub
+}
+public boolean array6(int[] nums, int index) {
+// Given an array of ints, compute recursively if the array contains a 6.
+// We'll use the convention of considering only the part of the array that begins at the given index. 
+// In this way, a recursive call can pass index+1 to move down the array. The initial call will pass in index as 0.
+// array6([1, 6, 4], 0) → true
+  if (index == nums.length) return false; // to stop going out of bounds (instead of len=0 b/c nums stays nums)
+  
+  int f = nums[index]; // considering at new index instead of nums[0]
+  
+  if (f == 6) return true;
+  return array6(nums, index+1);
+}
+
