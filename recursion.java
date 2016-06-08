@@ -42,11 +42,11 @@ public int countHi(String str) {
 // Given a string, compute recursively (no loops) the number of times lowercase "hi" appears in the string.
 // countHi("xxhixx") → 1
 // countHi("xhixhix") → 2  
-  if (str.length() <= 1) return 0; // screen out; 'if' only len=2 cases
+  if (str.length() <= 1) return 0; // screen out; 
   
   int count = 0; // 'fix' factor
   
-  if (str.substring(0, 2).equals("hi")) count = 1;  
+  if (str.substring(0, 2).equals("hi")) count = 1; // 'if' only len=2 cases
   return count + countHi(str.substring(1)); // 'slice': sub
 }
 public boolean array6(int[] nums, int index) {
