@@ -61,4 +61,96 @@ public boolean array6(int[] nums, int index) {
   if (f == 6) return true;
   return array6(nums, index+1);
 }
+public int countHi2(String str) {
+// Given a string, compute recursively the number of times lowercase "hi" appears in the string, 
+// however do not count "hi" that have an 'x' immedately before them.
+// countHi2("ahixhi") → 1
+// countHi2("ahibhi") → 2
+// countHi2("xhixhi") → 0
+
+  if (str.length() <= 1) return 0;
+  
+  if (str.substring(0, 2).equals("hi")) // hi: add 1 and skip to [2]
+    return 1 + countHi2(str.substring(2));
+  
+  if (str.charAt(0) == 'x' && str.charAt(1) != 'x') // x: skip next letter; but don't do that if next letter is x
+    return countHi2(str.substring(2));
+  
+  return countHi2(str.substring(1)); // everything else
+}
+public String parenBit(String str) {
+  // "xyz(abc)123" yields "(abc)".
+  
+  // Is the first char a '('? If not, recur, removing one char from the left of the string.
+  if (str.charAt(0) != '(') {
+    return parenBit(str.substring(1));
+  }
+  
+  // Eventually this gets us to '(' at the start of the string.
+  // If the first char is '(', then recur similarly, removing one char from the end of the string, until it is ')'.
+  if (str.charAt(str.length()-1) != ')') {
+    return parenBit(str.substring(0, str.length()-1));
+  }
+  
+  // Now the first and last chars are ( .. ) and you're done.
+  return str;
+}
+public boolean nestParen(String str) {
+// Given a string, return true if it is a nesting of zero or more pairs of parenthesis, like "(())" or "((()))". 
+
+// nestParen("(())") → true
+// nestParen("((()))") → true
+// nestParen("(((x))") → false
+  
+  // 2 eventual base scenarios; () here b/c to not go outta bound below
+  if (str.equals("") || str.equals("()")) return true;
+  
+  // check the first and last chars, and then recur on what's inside them
+  if (str.charAt(0) == '(' && str.charAt(str.length() - 1) == ')')
+    return nestParen(str.substring(1, str.length() - 1));
+  
+  // third eventual base case 
+  return false;
+}
+public boolean strCopies(String str, String sub, int n) {
+  
+// Given a string and a non-empty substring sub, compute recursively if at least n copies of sub appear in the string somewhere, 
+// possibly with overlapping. N will be non-negative.
+
+// strCopies("catcowcat", "cat", 2) → true
+// strCopies("catcowcat", "cow", 2) → false
+// strCopies("catcowcat", "cow", 1) → true
+
+  if (n == 0) return true; // stop, met requirement
+  int len = sub.length();
+  if (str.length() < len) return false; // haven't met requirement and ran out of len 
+  
+  if (str.substring(0, len).equals(sub)) {
+    
+    // Found it, so subtract 1 from n in the recursion
+    return strCopies(str.substring(1), sub, n-1);
+    
+  } else {
+    return strCopies(str.substring(1), sub, n);
+  }
+}
+public int strDist(String str, String sub) {
+  
+// Given a string and a non-empty substring sub, 
+// compute recursively the largest substring which starts and ends with sub and return its length.
+
+// strDist("catcowcat", "cat") → 9
+// strDist("catcowcat", "cow") → 3
+// strDist("cccatcowcatxx", "cat") → 9
+
+  if (str.length() < sub.length()) return 0; // to not go out of bounds below
+  
+  if (!str.substring(0, sub.length()).equals(sub)) 
+    return strDist(str.substring(1), sub); // slice it down until gets to sub
+  
+  if (!str.substring(str.length() - sub.length()).equals(sub)) 
+    return strDist(str.substring(0, str.length() - 1), sub);
+    
+  return str.length(); // now we have sub...sub to return its len
+}
 
