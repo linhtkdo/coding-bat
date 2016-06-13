@@ -110,3 +110,19 @@ public boolean xyzMiddle(String str) {
   return str.substring(len/2 - 2, len/2 + 1).equals("xyz")
       || str.substring(len/2 - 1, len/2 + 2).equals("xyz");
 }
+public String getSandwich(String str) {
+  
+// A sandwich is two pieces of bread with something in between. Return the string that is between the first and last appearance 
+// of "bread" in the given string, or return the empty string "" if there are not two pieces of bread.
+
+  // calls to indexOf() to figure out the index numbers
+  int start = str.indexOf("bread");
+  int end = str.lastIndexOf("bread");
+  
+  // -1 (nothing) or same i (one bread)
+  if (start == end) return "";
+  
+  // pull out the text inside
+  return str.substring(start+5, end);
+  
+}
