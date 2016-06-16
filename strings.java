@@ -135,4 +135,52 @@ public String zipZap(String str) {
       str = str.substring(0, i+1) + str.substring(i+2); // nice trick to delete [i+1] in str
   return str;
 }
+public static String starOut(String s) {
+  // Return a version of the given string, where for every star (*) in the string the star and the chars immediately to its left and 
+  // right are gone. So "ab*cd" yields "ad" and "ab**cd" also yields "ad".
+  
+  StringBuilder sb = new StringBuilder(); 
+  
+  // Step through all the characters in the string.   
+  for (int i = 0; i < s.length(); i++) {
+    
+    // If you land on an asterisk, don't record it.
+    if (s.charAt(i) == '*') continue; 
+      
+    // Peek left, and if you see an asterisk, don't record it.
+    if (i > 0 && s.charAt(i - 1) == '*') continue;
+        
+    // Peek right if you see an asterisk, don't record it.
+    if (i < s.length() - 1 && s.charAt(i + 1) == '*') continue;
+    
+    // If none of the above things happen, record it.
+    sb.append(s.charAt(i));
+    }
+
+  return sb.toString();
+}
+public String plusOut(String str, String word) {
+
+// Given a string and a non-empty word string, return a version of the original String where all chars have been replaced by pluses ("+"), 
+// except for appearances of the word string which are preserved unchanged.
+
+// plusOut("12xy34", "xy") → "++xy++"
+// plusOut("12xy34", "1") → "1+++++"
+// plusOut("12xy34xyabcxy", "xy") → "++xy++xy+++xy"
+
+  String s = "";
+  
+  int found = str.indexOf(word); // find first instance
+  
+  for (int i=0; i < str.length(); i++) {
+    
+    if (i == found) { // if word is here
+      s = s + word; // add word
+      found = str.indexOf(word, found + word.length()); // find next instance
+      i = i + word.length()-1; // move i past word
+    }
+    else s = s + "+"; // if word is not here (later or -1), just add +
+  }
+  return s;
+}
 
