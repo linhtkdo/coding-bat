@@ -183,4 +183,28 @@ public String plusOut(String str, String word) {
   }
   return s;
 }
+public String wordEnds(String str, String word) {
 
+// Given a string and a non-empty word string, return a string made of each char just before and just after every appearance of the word 
+// in the string. Ignore cases where there is no char before or after the word, and a char may be included twice if it is between two words.
+
+// wordEnds("abcXY123XYijk", "XY") → "c13i"
+// wordEnds("XY123XY", "XY") → "13"
+// wordEnds("XY1XY", "XY") → "11"
+
+  String s = "";
+  int i=0;
+  while (i < str.length()) {
+    int found = str.indexOf(word, i); // find word
+    if (found == -1) break; 
+    
+    int before = found-1; // flag pos
+    int after = found + word.length();
+    
+    if (before >= 0) s = s + str.charAt(before); // do something with [pos]
+    if (after <= str.length()-1) s = s + str.charAt(after);
+    
+    i = after; // advance i to start the next iteration
+  }
+  return s;
+}
