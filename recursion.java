@@ -153,4 +153,13 @@ public int strDist(String str, String sub) {
     
   return str.length(); // now we have sub...sub to return its len
 }
+public boolean groupSum(int start, int[] nums, int target) {
+// Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target? 
+// This is a classic backtracking recursion problem. 
 
+  // Base case: if there are no numbers left, then there is a solution only if target is 0.
+  if (start == nums.length) return target == 0 ;
+  
+  // Key idea: nums[start] is chosen or it is not. Return true if either of the two recursive calls returns true.
+  return (groupSum(start + 1, nums, target - nums[start]) || groupSum(start + 1, nums, target));
+}
