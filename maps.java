@@ -1,6 +1,6 @@
 public Map wordCount(String[] strings) {
-given an array of strings, return a Map<String, Integer> with a key for each different string, 
-with the value the number of times that string appears in the array.
+// given an array of strings, return a Map<String, Integer> with a key for each different string, 
+// with the value the number of times that string appears in the array.
   Map map = new HashMap ();
   for (String s:strings) {
     
@@ -16,13 +16,13 @@ with the value the number of times that string appears in the array.
 }
 public String[] allSwap(String[] strings) {
 
-We'll say that 2 strings "match" if they are non-empty and their first chars are the same. 
-Loop over and then return the given array of non-empty strings as follows: 
-if a string matches an earlier string in the array, swap the 2 strings in the array. 
-When a position in the arrays has been swapped, it no longer matches anything. 
+// We'll say that 2 strings "match" if they are non-empty and their first chars are the same. 
+// Loop over and then return the given array of non-empty strings as follows: 
+// if a string matches an earlier string in the array, swap the 2 strings in the array. 
+// When a position in the arrays has been swapped, it no longer matches anything. 
 
-allSwap(["ab", "ac"]) → ["ac", "ab"]
-allSwap(["ax", "bx", "cx", "cy", "by", "ay", "aaa", "azz"]) → ["ay", "by", "cy", "cx", "bx", "ax", "azz", "aaa"]
+// allSwap(["ab", "ac"]) → ["ac", "ab"]
+// allSwap(["ax", "bx", "cx", "cy", "by", "ay", "aaa", "azz"]) → ["ay", "by", "cy", "cx", "bx", "ax", "azz", "aaa"]
 
   // Make a Map<String, Integer> with the first char as the key and the index in the array as the value.
   Map<String, Integer> map = new HashMap();
