@@ -208,3 +208,61 @@ public String wordEnds(String str, String word) {
   }
   return s;
 }
+public int countYZ(String str) {
+// Given a string, count the number of words ending in 'y' or 'z' -- 
+// so the 'y' in "heavy" and the 'z' in "fez" count, but not the 'y' in "yellow" (not case sensitive). 
+// We'll say that a y or z is at the end of a word if there is not an alphabetic letter immediately following it. 
+// (Note: Character.isLetter(char) tests if a char is an alphabetic letter.)
+// countYZ("fez day") → 2
+
+  str = str.toLowerCase() + " "; // to handle last char == y
+  int count = 0;
+  for (int i=0; i < str.length()-1; i++) {
+    if (!Character.isLetter(str.charAt(i+1)) && (str.charAt(i) == 'y' || str.charAt(i) == 'z')) 
+      count++;
+  }
+  return count;
+}
+public String withoutString(String base, String remove) {
+// Given two strings, base and remove, 
+// return a version of the base string where all instances of the remove string have been removed (not case sensitive). 
+
+// withoutString("Hello there", "llo") → "He there"
+// withoutString("xxx", "xx") → "x"	
+
+  String s = "";
+  int found = base.toLowerCase().indexOf(remove.toLowerCase()); // not case sensitive
+  
+  while (found != -1) {
+    s += base.substring(0, found);
+    base = base.substring(found + remove.length());
+    found = base.toLowerCase().indexOf(remove.toLowerCase());
+  }
+  
+  s += base;
+  return s;
+}
+public boolean equalIsNot(String str) {
+// Given a string, return true if the number of appearances of "is" anywhere in the string is equal to the number of appearances 
+// of "not" anywhere in the string (case sensitive).
+  return helper(str, "is") == helper(str, "not");
+}
+public int helper(String str, String word) { 
+  int count = 0;
+  
+  for (int i=0; i <= str.length() - word.length(); i++) // handles different edge cases for us!
+    if (str.substring(i, i + word.length()).equals(word)) 
+      count++;
+      
+  return count;
+}
+public int sumDigits(String str) {
+// Given a string, return the sum of the digits 0-9 that appear in the string, ignoring all other characters. 
+  int sum=0;
+  
+  for (int i=0; i < str.length(); i++) 
+    if (Character.isDigit(str.charAt(i))) // tests if a char is one of the chars '0', '1', .. '9'
+      sum += Integer.parseInt(str.substring(i, i+1)); // converts a string to an int
+      
+  return sum;
+}
