@@ -163,3 +163,58 @@ public boolean groupSum(int start, int[] nums, int target) {
   // Key idea: nums[start] is chosen or it is not. Return true if either of the two recursive calls returns true.
   return (groupSum(start + 1, nums, target - nums[start]) || groupSum(start + 1, nums, target));
 }
+public boolean groupNoAdj(int start, int[] nums, int target) {
+
+// Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target 
+// with this additional constraint: 
+// If a value in the array is chosen to be in the group, the value immediately following it in the array must not be chosen. 
+
+  if (start >= nums.length) return (target == 0);
+  
+  return groupNoAdj(start + 1, nums, target) // next index is called, then it can be chosen or not at next call
+  || groupNoAdj(start + 2, nums, target - nums[start]); // num[start] is chosen, so skip next index
+}
+public boolean groupSumClump(int start, int[] nums, int target) {
+
+// Given an array of ints, is it possible to choose a group of some of the ints, such that the group sums to the given target, 
+// with this additional constraint: 
+
+// if there are numbers in the array that are adjacent and the identical value, they must either all be chosen, or none of them chosen. 
+// For example, with the array {1, 2, 2, 2, 5, 2}, either all three 2's in the middle must be chosen or not, all as a group.
+
+// (one loop can be used to find the extent of the identical values).
+
+  if (start >= nums.length) return target == 0;
+  
+  int count = 0;
+  int num = nums[start];
+    
+  for (int i=start; i<nums.length; i++) {
+    if (nums[i] != num) break; // we need only *adj* identical nums, so ala a diffent num, break loop 
+    else count++;
+  } 
+  
+  return groupSumClump(start + count, nums, target)
+      || groupSumClump(start + count, nums, target - num*count);
+}
+public boolean splitArray(int[] nums) {
+// Given an array of ints, is it possible to divide the ints into two groups, so that the sums of the two groups are the same. 
+// Every int must be in one group or the other. Write a recursive helper method that takes whatever arguments you like, 
+// and make the initial call to your recursive helper from splitArray(). (No loops needed.)
+
+// splitArray([2, 2]) → true
+// splitArray([2, 3]) → false
+// splitArray([5, 2, 3]) → true
+
+  return helper(0, nums, 0, 0);
+}
+public boolean helper(int start, int[] nums, int sum1, int sum2) {
+  if (start >= nums.length) return sum1 == sum2;
+  
+  int num = nums[start];
+  
+  // all permutations of every num is in sum1 or sum2 (w/ all there lower combinations) are considered
+  return helper(start + 1, nums, sum1 + num, sum2) 
+      || helper (start + 1, nums, sum1, sum2 + num); 
+}
+
