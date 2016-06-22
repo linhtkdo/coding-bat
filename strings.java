@@ -266,3 +266,38 @@ public int sumDigits(String str) {
       
   return sum;
 }
+public String notReplace(String str) {
+// Given a string, return a string where every appearance of the lowercase word "is" has been replaced with "is not". 
+// The word "is" should not be immediately preceeded or followed by a letter -- so for example the "is" in "this" does not count. 
+// (Note: Character.isLetter(char) tests if a char is a letter.)
+
+// notReplace("is test") → "is not test"
+// notReplace("is-is") → "is not-is not"
+// notReplace("This is right") → "This is not right"
+
+  // make new string
+  String s = "";
+  
+  // step through all chars in str
+  for (int i=0; i < str.length(); i++) { // do not use indexOf() + while loop to find all instances 
+    
+    // if "is" here, add "is not" to s, advance i past "is"
+    if (i < str.length()-1 && str.substring(i, i+2).equals("is")) {
+      
+      boolean letterBefore = i > 0 && Character.isLetter(str.charAt(i-1));
+      
+      boolean letterAfter = i < str.length()-2 && Character.isLetter(str.charAt(i+2));
+                  
+      if (!letterBefore && !letterAfter) { // only add if there's no letter before or after
+        s += "is not"; 
+        i++;
+        continue;
+      }
+    }
+    
+    // else just add current char to s
+    s += str.charAt(i);
+  }
+  return s;
+}
+
